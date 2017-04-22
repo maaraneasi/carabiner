@@ -29,8 +29,10 @@ static bool validatePoll(const char* flagname, gflags::int32 value) {
 
 // Set up the command-line options supported by the program
 DEFINE_int32(port, 17000, "TCP port on which to accept connections");
+//int port = 17000;
 static const bool port_dummy = gflags::RegisterFlagValidator(&FLAGS_port, &validatePort);
 DEFINE_int32(poll, 20, "Number of milliseconds between updates");
+//int poll = 20;
 static const bool poll_dummy = gflags::RegisterFlagValidator(&FLAGS_poll, &validatePoll);
 
 // Our interface to the Link session
@@ -238,7 +240,8 @@ int main(int argc, char* argv[]) {
   linkInstance.enable(true);
 
   struct mg_mgr mgr;
-  const char *port = ("tcp://127.0.0.1:" + std::to_string(FLAGS_port)).c_str();
+//  const char *port = ("tcp://127.0.0.1:" + std::to_string(FLAGS_port)).c_str();
+  const char *port = ("tcp://127.0.0.1:17000");
 
   mg_mgr_init(&mgr, NULL);
   mg_bind(&mgr, port, eventHandler);
@@ -250,8 +253,9 @@ int main(int argc, char* argv[]) {
       " Peers: " << linkInstance.numPeers() <<
       " Connections: " << activeConnections.size() << "     \r" << std::flush;
 
-    mg_mgr_poll(&mgr, FLAGS_poll);
-  }
+ //   mg_mgr_poll(&mgr, FLAGS_poll);
+    mg_mgr_poll(&mgr, 20);  
+}
   mg_mgr_free(&mgr);
 
   return 0;
