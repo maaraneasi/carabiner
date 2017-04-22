@@ -82,7 +82,7 @@ static void handleBpm(std::string args, struct mg_connection *nc) {
 // Process a request to query the timeline
 static void handleBeatAtTime(std::string args, struct mg_connection *nc) {
   std::stringstream ss(args);
-  long when;
+  long long when;
   double quantum;
 
   ss >> when;
@@ -111,7 +111,7 @@ static void handleBeatAtTime(std::string args, struct mg_connection *nc) {
 static void handleForceBeatAtTime(std::string args, struct mg_connection *nc) {
   std::stringstream ss(args);
   double beat;
-  long when;
+  long long when;
   double quantum;
 
   ss >> beat;
